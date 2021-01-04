@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes adresses - La Bonne Boutique{% endblock %}
+
+{% block content %}
+<a href='{{ path('add_adresse') }}' class='btn btn-info btn-sm float-right'>Ajouter une adresse</a>
+<h1>
+    Mes adresses
+</h1>
+
+   C'est dans cet espace que vous allez pouvoir gérer toutes vos adresses.
+   <a href=" {{ path('account')}}"> Retour </a><br>
+   {% if app.user.adresses|length == 0 %}
+   <p class='text-center'>
+     Vous n'avez pas encore ajouté d'adresse dans votre compte client. Pour en ajouter une, veuillez <a href='' class=''>cliquer ici</a>
+   </p>
+   {% else %}
+      <div class="row">
+        {% for address in app.user.adresses %}
+          <div class='col-md-4 mt-4'>
+              <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">{{ address.name }}</h5>
+                  <p class="card-text">
+                    {{ address.adress }}<br>
+                    {{ address.postal }} - {{ address.city }} - {{ address.country }}
+                  </p>
+                  <a href="{{path('edit_adresse', { 'id' : address.id })}}">Modifier</a> - <a href="{{path('delete_adresse', { 'id' : address.id })}}">Supprimer</a>
+                </div>
+              </div>
+          </div>
+        {% endfor %}   
+      </div>   
+   {% endif %}
+{% endblock %}

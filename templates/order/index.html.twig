@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Valider ma commande - La Bonne Boutique{% endblock %}
+
+{% block content%}
+    <h2>Choisissez votre préférence avant de passer la commande</h2>
+    <hr>
+    <div class='row'>
+        <div class='col-md-6'>
+            {% set formHtml %}
+                {{ form_start(form, {action:path('order_recap')}) }}
+                    <a href="{{ path('add_adresse') }}">Ajouter une nouvelle adresse</a>
+                {{ form_end(form)}}
+                
+            {% endset %}
+            {{ formHtml|replace({'[br]' : '<br/>'})|raw }}
+        </div>
+        <div class='col-md-6'>
+            <div class='text-center'>
+                <b>Recap de ma commande</b>
+                <p>Retrouvez le récapitulatif de vos produits</p>
+            </div>
+            <div class="order-summary">
+            {% set total = null %}
+                {% for product in cart %}
+                <div class="row mt-2">
+                    <div class="col-2"><img src="/uploads/{{ product.product.illustration }}" alt='{{ product.product.name }}' height="75px"></div>
+                    <div class="col-8 my-auto">{{ product.product.name}}<br><small>{{ product.product.subtitle}}</small></div>
+                    <div class="col-2 my-auto">X {{ product.quantity}}</div>
+                <div class="col-1 my-auto">{{((product.product.price * product.quantity) / 100)|number_format(2,',', '.')}}€</div>
+                </div>
+                 {% set total = total + (product.product.price * product.quantity )%} 
+                {% endfor %}
+                <strong>Total:</strong> {{(total / 100 )|number_format(2,',', '.')}}€
+            </div>   
+        </div>
+    </div>
+{% endblock %}

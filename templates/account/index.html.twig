@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte - La Bonne Boutique{% endblock %}
+
+{% block content %}
+<h1>
+    Mon compte
+</h1>
+    Bienvenue {{ app.user.firstname }} dans votre compte.<br> C'est dans cet espace que vous allez pouvoir gérer toutes vos informations personnelles.
+    <br><hr>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="account-item mt-4">
+                <a href=" {{ path('account_password')}}"> Modifier mon mot de passe </a>
+            </div>
+        </div>
+        <div class="col-md-4 mt-4">
+            <div class="account-item">
+                <a href=" {{ path('account_adresse')}}"> Gerer mes adresses </a>
+            </div>
+        </div>
+        <div class="col-md-4 mt-4">
+            <div class="account-item">
+                <a href=" {{ path('account_order')}}"> Mes commandes </a>
+            </div>
+        </div>
+        <div class="col-md-4 mt-4">
+            <div class="account-item">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href=" {{ path('admin')}}"> Accéder au back office </a><br>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur de paiment - La Bonne Boutique{% endblock %}
+
+{% block content %}
+    <h2>Erreur de paiment</h2>
+    <p>Bonjour <strong>{{ order.user.firstname }} {{ order.user.lastname }}</strong><br><br>
+    Il semberait que votre paiement est échoue pour votre commande n <strong>{{ order.reference }}</strong> <br>
+    Votre commande d'erreur vient de vous etre envoyée par email à l'adresse <strong>{{ order.user.email }}</strong>
+        <hr>
+    <a href='{{ path('order') }}' class='btn btn-success'>Réssayer commande</a>
+
+{% endblock %}
